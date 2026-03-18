@@ -1,4 +1,4 @@
-// src/pages/Recommendations.js
+// src/pages/Recommendations.tsx
 import { useEffect, useState } from "react";
 import { getRecommendations } from "../services/api";
 import TrackCard from "../components/TrackCard";
@@ -33,7 +33,7 @@ export default function Recommendations({ userId }) {
             </div>
             <h1>Recommendations</h1>
             <p style={{ marginTop: "0.5rem" }}>
-              Ranked using cosine similarity + KNN on your Spotify listening profile
+              Ranked using cosine similarity + KNN from your backend-generated listening profile
             </p>
           </header>
 

@@ -1,4 +1,4 @@
-// src/pages/Dashboard.js
+// src/pages/Dashboard.tsx
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/router";
 import {
@@ -19,7 +19,12 @@ const TIME_RANGES = [
   { value: "long_term",   label: "All Time" },
 ];
 
-export default function Dashboard({ userId, onLogout }) {
+type DashboardProps = {
+  userId: string;
+  onLogout?: () => void;
+};
+
+export default function Dashboard({ userId, onLogout }: DashboardProps) {
   const router = useRouter();
 
   const [profile, setProfile]   = useState(null);
@@ -54,7 +59,7 @@ export default function Dashboard({ userId, onLogout }) {
     setLoading(true);
     try {
       // Step 1: Generate dataset
-      setStatus({ step: "dataset", message: "Collecting Spotify data & generating dataset..." });
+      setStatus({ step: "dataset", message: "Loading backend dataset & generating feature store..." });
       const ds = await generateDataset(userId);
       setDatasetStats(ds.stats);
 

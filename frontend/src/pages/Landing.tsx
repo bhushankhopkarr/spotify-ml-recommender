@@ -1,29 +1,18 @@
-// src/pages/Landing.js
-import React, { useState } from "react";
+// src/pages/Landing.tsx
+import React from "react";
+import { useRouter } from "next/router";
 import { motion } from "framer-motion";
-import { getLoginUrl } from "../services/api";
 import { Button } from "../components/ui/button";
 
 const FEATURES = [
-  { icon: "🧠", title: "ML-Powered", desc: "Cosine similarity, KNN, and K-Means clustering trained on your real listening data." },
-  { icon: "🎵", title: "Live Spotify Data", desc: "No static datasets — every recommendation is powered by the Spotify API in real time." },
+  { icon: "🧠", title: "ML-Powered", desc: "Cosine similarity, KNN, and K-Means clustering trained on your backend dataset." },
+  { icon: "📦", title: "Offline Dataset", desc: "Built for backend-provided data from your ML pipeline with no third-party auth dependency." },
   { icon: "🎭", title: "Mood Engine", desc: "Happy, sad, workout, chill — recommendations matched to your current vibe." },
   { icon: "🔬", title: "Cluster Visualization", desc: "Explore your music universe with interactive PCA-reduced cluster charts." },
 ];
 
 export default function Landing() {
-  const [loading, setLoading] = useState(false);
-
-  const handleLogin = async () => {
-    setLoading(true);
-    try {
-      const url = await getLoginUrl();
-      window.location.href = url;
-    } catch (e) {
-      console.error("Login failed:", e);
-      setLoading(false);
-    }
-  };
+  const router = useRouter();
 
   return (
     <div className="landing">
@@ -52,32 +41,21 @@ export default function Landing() {
           </h1>
 
           <p className="landing__subtitle">
-            A machine learning system that learns your taste from real Spotify data —
-            no generic playlists, just music that's actually{" "}
+            A machine learning system that serves recommendations from your backend ML pipeline,
+            using offline data instead of third-party auth flows or real-time streaming APIs.
+            No generic playlists, just music that's actually{" "}
             <em>for you</em>.
           </p>
 
           <Button
             className="landing__cta bg-primary text-primary-foreground hover:opacity-90"
-            onClick={handleLogin}
-            disabled={loading}
+            onClick={() => router.push("/dashboard")}
           >
-            {loading ? (
-              <>
-                <span className="btn-spinner" /> Connecting...
-              </>
-            ) : (
-              <>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-                </svg>
-                Connect with Spotify
-              </>
-            )}
+            Open Dashboard
           </Button>
 
           <p className="landing__privacy">
-            🔒 Read-only access · No data stored permanently · Open source
+            🔒 Backend-driven flow · Offline-ready data contract · Open source
           </p>
         </motion.header>
 
@@ -100,8 +78,8 @@ export default function Landing() {
           <h2 style={{ marginBottom: "1.5rem" }}>How it works</h2>
           <div className="landing__arch-flow">
             {[
-              { label: "Your Spotify", sub: "OAuth 2.0 login", icon: "🎧" },
-              { label: "Data Pipeline", sub: "1000+ tracks fetched", icon: "📡" },
+              { label: "Backend Dataset", sub: "Offline ML source", icon: "🗂️" },
+              { label: "Data Pipeline", sub: "Feature extraction + prep", icon: "📡" },
               { label: "ML Engine", sub: "Cosine · KNN · KMeans", icon: "🧠" },
               { label: "Personalized Recs", sub: "Ranked & scored", icon: "✨" },
             ].map((step, i, arr) => (
@@ -238,14 +216,6 @@ export default function Landing() {
           font-size: 1.5rem;
           color: var(--green);
           margin-top: -1rem;
-        }
-        .btn-spinner {
-          width: 16px; height: 16px;
-          border: 2px solid rgba(0,0,0,0.3);
-          border-top-color: #000;
-          border-radius: 50%;
-          display: inline-block;
-          animation: spin 0.7s linear infinite;
         }
       `}</style>
     </div>

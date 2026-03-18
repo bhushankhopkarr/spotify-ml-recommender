@@ -1,4 +1,4 @@
-// src/services/api.js
+// src/services/api.ts
 // Centralized API service for all backend communication
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
@@ -16,12 +16,7 @@ async function request(path, options = {}) {
   return res.json();
 }
 
-// ─── AUTH ───────────────────────────────────────────────
-
-export const getLoginUrl = () =>
-  request("/login").then((d) => d.auth_url);
-
-// ─── USER DATA ───────────────────────────────────────────
+// ─── PROFILE DATA ────────────────────────────────────────
 
 export const getUserProfile = (userId) =>
   request(`/user-profile?user_id=${userId}`);
