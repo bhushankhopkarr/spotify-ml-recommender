@@ -1,9 +1,21 @@
 /* src/index.css — Global styles for Spotify ML Recommender */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
 
 /* ─── DESIGN TOKENS ──────────────────────────────────────── */
 :root {
+  --background-hsl: 0 0% 4%;
+  --foreground-hsl: 0 0% 95%;
+  --primary-hsl: 141 73% 42%;
+  --primary-foreground-hsl: 0 0% 6%;
+  --border-hsl: 240 5% 26%;
+  --input-hsl: 240 5% 26%;
+  --ring-hsl: 141 73% 42%;
+
   --bg:         #0a0a0f;
   --bg-card:    #13131a;
   --bg-hover:   #1c1c28;
