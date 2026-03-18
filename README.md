@@ -1,8 +1,8 @@
 # SoundML Frontend
 
-A Next.js + TypeScript frontend for an ML-powered Spotify recommender experience.
+A Next.js + TypeScript frontend for an ML-powered music recommender experience.
 
-This app lets users connect with Spotify, view listening analytics, trigger an ML pipeline, and explore recommendations by similarity, mood, and cluster visualization.
+This app is frontend-only and is designed to consume backend-provided offline data from your ML pipeline.
 
 ## Current Repository Scope
 
@@ -12,13 +12,13 @@ The UI expects a separate backend API running on `http://127.0.0.1:8000` by defa
 
 ## Features
 
-- Spotify OAuth login flow entry point
 - Dashboard with profile, top tracks, top artists, and pipeline actions
 - Personalized recommendations view
 - Mood-based recommendation view
 - Cluster visualization page for track distribution
 - Audio preview playback and per-track feature bars
 - Styled UI system with reusable components
+- TS/TSX-only app source files (JS duplicates removed)
 
 ## Tech Stack
 
@@ -37,7 +37,6 @@ spotify-ml-recommender/
 │   ├── pages/               # Route entry files
 │   ├── src/
 │   │   ├── components/      # UI + domain components
-│   │   ├── hooks/           # Client hooks (auth/session)
 │   │   ├── lib/             # Shared helpers
 │   │   ├── pages/           # Screen-level page components
 │   │   └── services/        # API client layer
@@ -86,13 +85,12 @@ Example for local override in `frontend/.env.local`:
 NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 ```
 
-Note: The root `.env.example` still includes legacy frontend naming (`REACT_APP_API_URL`). The active frontend code now uses `NEXT_PUBLIC_API_URL`.
+The frontend uses `NEXT_PUBLIC_API_URL` and defaults to `http://127.0.0.1:8000` if not provided.
 
 ## Backend API Contract
 
 The frontend calls these endpoints:
 
-- `GET /login`
 - `GET /user-profile?user_id=...`
 - `GET /user-top-tracks?user_id=...&time_range=...&limit=...`
 - `GET /user-top-artists?user_id=...&time_range=...&limit=...`
@@ -110,7 +108,7 @@ The frontend calls these endpoints:
 
 1. Start backend API service.
 2. Start frontend with `npm run dev`.
-3. Open the app and connect Spotify.
+3. Open the app and continue to dashboard.
 4. Run the ML pipeline from the dashboard.
 5. Explore recommendations, mood playlists, and clusters.
 
@@ -128,7 +126,6 @@ The frontend calls these endpoints:
 
 ## Notes
 
-- The app currently uses client-side session storage for `spotify_user_id`.
 - The frontend is configured with TypeScript in non-strict mode to support incremental type hardening.
 
 ## Future Improvements
