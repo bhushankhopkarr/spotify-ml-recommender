@@ -41,6 +41,7 @@ yarn-error.log*
 .idea/
 *.swp
 *.swo
+.next
 
 # Local runtime/data artifacts
 backend/models/
